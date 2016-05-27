@@ -53,10 +53,12 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Filter Include="Content\Data">
+      <UniqueIdentifier>{139b483e-7a8f-44ad-8539-45f8f9c83120}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="HolographicAppMain.cpp" />
     <ClCompile Include="AppView.cpp" />
     <ClCompile Include="Content\SpatialInputHandler.cpp">
       <Filter>Content</Filter>
@@ -64,10 +66,25 @@
     <ClCompile Include="Content\SpinningCubeRenderer.cpp">
       <Filter>Content</Filter>
     </ClCompile>
+    <ClCompile Include="BoneVizMain.cpp" />
+    <ClCompile Include="Common\mathlib.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\SurfaceObject.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\surfProcessing.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\prime.c">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\set.c">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="HolographicAppMain.h" />
     <ClInclude Include="AppView.h" />
     <ClInclude Include="Content\SpatialInputHandler.h">
       <Filter>Content</Filter>
@@ -77,6 +94,25 @@
     </ClInclude>
     <ClInclude Include="Content\ShaderStructures.h">
       <Filter>Content</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneVizMain.h" />
+    <ClInclude Include="Common\mathlib.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\set.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\SurfaceObject.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\surfProcessing.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\defs.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\prime.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -98,5 +134,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BoneViz_TemporaryKey.pfx" />
+    <None Include="Content\data1.SURF">
+      <Filter>Content\Data</Filter>
+    </None>
+    <None Include="Content\data2.SURF">
+      <Filter>Content\Data</Filter>
+    </None>
+    <None Include="Content\data3.SURF">
+      <Filter>Content\Data</Filter>
+    </None>
+    <None Include="Content\Orig.SURF">
+      <Filter>Content\Data</Filter>
+    </None>
   </ItemGroup>
 </Project>

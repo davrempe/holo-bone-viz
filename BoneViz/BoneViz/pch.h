@@ -15,4 +15,7 @@
 #include <memory>
 #include <map>
 #include <mutex>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
