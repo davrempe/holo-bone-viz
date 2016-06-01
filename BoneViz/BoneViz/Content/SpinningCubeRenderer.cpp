@@ -298,7 +298,7 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
 		vertexBufferData.pSysMem = boneVerts;
         vertexBufferData.SysMemPitch = 0;
         vertexBufferData.SysMemSlicePitch = 0;
-        const CD3D11_BUFFER_DESC vertexBufferDesc(nVerts * sizeof(boneVerts), D3D11_BIND_VERTEX_BUFFER);
+        const CD3D11_BUFFER_DESC vertexBufferDesc(nVerts * sizeof(VertexPositionColor), D3D11_BIND_VERTEX_BUFFER);
 
         DX::ThrowIfFailed(
             m_deviceResources->GetD3DDevice()->CreateBuffer(
