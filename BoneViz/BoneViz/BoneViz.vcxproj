@@ -65,6 +65,10 @@
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_DEPRECATE ;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Link>
@@ -138,10 +142,18 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="BoneViz_TemporaryKey.pfx" />
-    <None Include="Content\data1.SURF" />
-    <None Include="Content\data2.SURF" />
-    <None Include="Content\data3.SURF" />
-    <None Include="Content\Orig.SURF" />
+    <Text Include="Content\data1.SURF">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Content\data2.SURF">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Content\data3.SURF">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="Content\Orig.SURF">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Content\PixelShader.hlsl">

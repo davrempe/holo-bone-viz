@@ -3,6 +3,8 @@
 #include "..\Common\DeviceResources.h"
 #include "..\Common\StepTimer.h"
 #include "ShaderStructures.h"
+#include "..\Common\SurfaceObject.h"
+#include "..\Common\surfProcessing.h"
 
 namespace BoneViz
 {
@@ -22,6 +24,10 @@ namespace BoneViz
         // Property accessors.
         void SetPosition(Windows::Foundation::Numerics::float3 pos) { m_position = pos;  }
         Windows::Foundation::Numerics::float3 GetPosition()         { return m_position; }
+
+		// Bone data helper functions
+		SurfaceObject* SpinningCubeRenderer::ParseBoneData(char* fileName);
+
 
     private:
         // Cached pointer to device resources.
@@ -48,5 +54,8 @@ namespace BoneViz
         // If the current D3D Device supports VPRT, we can avoid using a geometry
         // shader just to set the render target array index.
         bool                                            m_usingVprtShaders = false;
+
+		// bone data file to be read in
+		char* boneData = "Content/data1.SURF";
     };
 }
