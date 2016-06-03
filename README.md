@@ -1,9 +1,9 @@
 A HoloLens application to visualize the alignment of bone models from MRI and Ultrasound scans.
 
-Currently just the HoloLens template from Visual Studio.
+Currently just the HoloLens template from Visual Studio modified to load in and render an example bone data file 2 m in front of the user.
 
 ## To Run
-* In Visual Studio: File > Open > Project/Solution, choose this project
+* In Visual Studio (run as administrator): File > Open > Project/Solution, choose this project
 * Set to Release configuration
 * Set to x86 solution platform
 * Choose HoloLens Emulator to deploy to

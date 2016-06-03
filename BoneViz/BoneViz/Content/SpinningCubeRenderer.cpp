@@ -266,11 +266,40 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
             { XMFLOAT3( 0.1f,  0.1f,  0.1f), XMFLOAT3(1.0f, 1.0f, 1.0f) },
         };
 
+		XMFLOAT3 colors[] = {
+			XMFLOAT3(0.0f, 0.0f, 0.0f),
+			XMFLOAT3(0.0f, 0.0f, 1.0f),
+			XMFLOAT3(0.0f, 1.0f, 0.0f),
+			XMFLOAT3(0.0f, 1.0f, 1.0f),
+			XMFLOAT3(1.0f, 0.0f, 0.0f),
+			XMFLOAT3(1.0f, 0.0f, 1.0f),
+			XMFLOAT3(1.0f, 1.0f, 0.0f),
+			XMFLOAT3(1.0f, 1.0f, 1.0f)
+		};
+
+		// parse the bone data
+		SurfaceObject* surf = ParseBoneData(boneData);
+		int nVerts = surf->numPoints;
+		// get the centroid to translate to (0, 0, 0)
+		double* cent = surf->centroid;
+		double xOffset = -cent[0];
+		double yOffset = -cent[1];
+		double zOffset = -cent[2];
+		// need to scale bone model to be proper meter units
+		float scale = 0.01;
+		// Get in VertexPositionColor struct format
+		double* verts = surf->surfacePoints;
+		VertexPositionColor* boneVerts = new VertexPositionColor[nVerts];
+		for (int i = 0; i < nVerts; i++) {
+			boneVerts[i] = { XMFLOAT3(scale * (float(verts[3*i] + xOffset)), scale * (float(verts[3*i + 1] + yOffset)), scale * (float(verts[3*i + 2] + zOffset))), XMFLOAT3(1.0f, 0.0f, 0.0f) /*colors[i % 8]*/ };
+		}
+
         D3D11_SUBRESOURCE_DATA vertexBufferData = {0};
-        vertexBufferData.pSysMem = cubeVertices;
+		vertexBufferData.pSysMem = boneVerts;
         vertexBufferData.SysMemPitch = 0;
         vertexBufferData.SysMemSlicePitch = 0;
-        const CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(cubeVertices), D3D11_BIND_VERTEX_BUFFER);
+        const CD3D11_BUFFER_DESC vertexBufferDesc(nVerts * sizeof(VertexPositionColor), D3D11_BIND_VERTEX_BUFFER);
+
         DX::ThrowIfFailed(
             m_deviceResources->GetD3DDevice()->CreateBuffer(
                 &vertexBufferDesc,
@@ -278,6 +307,23 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
                 &m_vertexBuffer
                 )
             );
+
+		/*D3D11_SUBRESOURCE_DATA vertexBufferData = { 0 };
+		vertexBufferData.pSysMem = cubeVertices;
+		vertexBufferData.SysMemPitch = 0;
+		vertexBufferData.SysMemSlicePitch = 0;
+		const CD3D11_BUFFER_DESC vertexBufferDesc(sizeof(cubeVertices), D3D11_BIND_VERTEX_BUFFER);
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateBuffer(
+				&vertexBufferDesc,
+				&vertexBufferData,
+				&m_vertexBuffer
+			)
+		);*/
+
+		//delete[] verts;
+		//delete[] boneVerts;
+		//delete surf;
 
         // Load mesh indices. Each trio of indices represents
         // a triangle to be rendered on the screen.
@@ -306,20 +352,48 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
             1,7,5,
         };
 
-        m_indexCount = ARRAYSIZE(cubeIndices);
-
-        D3D11_SUBRESOURCE_DATA indexBufferData = {0};
-        indexBufferData.pSysMem          = cubeIndices;
+		m_indexCount = surf->numTriangles * 3;
+		// create unsigned short array of indices
+		unsigned short *boneInd = new unsigned short[m_indexCount];
+		for (int i = 0; i < m_indexCount; i++) {
+			boneInd[i] = (unsigned short)surf->triangles[i];
+		}
+		
+		D3D11_SUBRESOURCE_DATA indexBufferData = {0};
+		indexBufferData.pSysMem = boneInd;
         indexBufferData.SysMemPitch      = 0;
         indexBufferData.SysMemSlicePitch = 0;
-        const CD3D11_BUFFER_DESC indexBufferDesc(sizeof(cubeIndices), D3D11_BIND_INDEX_BUFFER);
-        DX::ThrowIfFailed(
+        const CD3D11_BUFFER_DESC indexBufferDesc(m_indexCount * sizeof(unsigned short), D3D11_BIND_INDEX_BUFFER);
+		
+		DX::ThrowIfFailed(
             m_deviceResources->GetD3DDevice()->CreateBuffer(
                 &indexBufferDesc,
                 &indexBufferData,
                 &m_indexBuffer
                 )
             );
+
+		delete[] cent;
+		cent = 0;
+		delete[] boneVerts;
+		boneVerts = 0;
+		delete[] boneInd;
+		boneInd = 0;
+
+		/*m_indexCount = ARRAYSIZE(cubeIndices);
+
+		D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
+		indexBufferData.pSysMem = cubeIndices;
+		indexBufferData.SysMemPitch = 0;
+		indexBufferData.SysMemSlicePitch = 0;
+		const CD3D11_BUFFER_DESC indexBufferDesc(sizeof(cubeIndices), D3D11_BIND_INDEX_BUFFER);
+		DX::ThrowIfFailed(
+			m_deviceResources->GetD3DDevice()->CreateBuffer(
+				&indexBufferDesc,
+				&indexBufferData,
+				&m_indexBuffer
+			)
+		);*/
     });
 
     // Once the cube is loaded, the object is ready to be rendered.
@@ -327,6 +401,11 @@ void SpinningCubeRenderer::CreateDeviceDependentResources()
     {
         m_loadingComplete = true;
     });
+}
+
+SurfaceObject* SpinningCubeRenderer::ParseBoneData(char* surfData)
+{
+	return parseGeometryFile(surfData);
 }
 
 void SpinningCubeRenderer::ReleaseDeviceDependentResources()

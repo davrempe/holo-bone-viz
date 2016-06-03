@@ -54,7 +54,7 @@
       <Filter>Assets</Filter>
     </Image>
     <Filter Include="Content\Data">
-      <UniqueIdentifier>{139b483e-7a8f-44ad-8539-45f8f9c83120}</UniqueIdentifier>
+      <UniqueIdentifier>{71fb24df-508e-4276-9fbe-fc2b248a30aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -134,17 +134,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BoneViz_TemporaryKey.pfx" />
-    <None Include="Content\data1.SURF">
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Content\data1.SURF">
       <Filter>Content\Data</Filter>
-    </None>
-    <None Include="Content\data2.SURF">
+    </Text>
+    <Text Include="Content\data2.SURF">
       <Filter>Content\Data</Filter>
-    </None>
-    <None Include="Content\data3.SURF">
+    </Text>
+    <Text Include="Content\data3.SURF">
       <Filter>Content\Data</Filter>
-    </None>
-    <None Include="Content\Orig.SURF">
+    </Text>
+    <Text Include="Content\Orig.SURF">
       <Filter>Content\Data</Filter>
-    </None>
+    </Text>
   </ItemGroup>
 </Project>
