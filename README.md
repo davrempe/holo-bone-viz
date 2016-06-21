@@ -1,5 +1,7 @@
 A HoloLens application to visualize the alignment of bone models from MRI and Ultrasound scans.
 
+> **NOTE:** This project was simply a proof of concept and no development will be done on it in the foreseeable future. An identical project, but on the Google Cardboard rather than Hololens, is in active development [here](https://github.com/davrempe/card-bone-viz).
+
 Currently just the HoloLens template from Visual Studio modified to load in and render an example bone data file 2 m in front of the user.
 
 ## To Run
